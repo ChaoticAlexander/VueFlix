@@ -5,6 +5,15 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+	ssr: true,
+	app: {
+		head: {
+			title: 'VueFlix',
+			link: [
+				{ rel: 'icon', type: 'image/x-icon', href: '/images/favicon.ico' },
+			],
+		},
+	},
   css: ["~/assets/css/main.css"],
   vite: {
     plugins: [tailwindcss()],

@@ -1,1 +1,54 @@
 @import "tailwindcss";
+
+:root {
+	--color-dark: #0E1117;
+	--color-dark-alt: #161B22;
+	--color-dark-hover: #1F242C;
+	--color-dark-border: #2A2F36;
+
+	--color-light: #F5F5F5;
+	--color-light-muted: #B3B3B3;
+	--color-light-dim: #7A7A7A;
+
+	--color-green: #42B883;
+	--color-green-dark: #2C9C6B;
+	--color-green-light: #65D9A5;
+
+	--color-indigo: #6366F1;
+	--color-indigo-dark: #4F46E5;
+	--color-indigo-light: #818CF8;
+
+	--color-red: #EF4444;
+	--color-yellow: #F59E0B;
+	--color-emerald: #22C55E;
+
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: "Montserrat", Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+@theme {
+	/* ── Semantic Mapping ── */
+	--color-background: var(--color-dark);
+	--color-surface: var(--color-dark-alt);
+	--color-surface-hover: var(--color-dark-hover);
+	--color-border: var(--color-dark-border);
+
+	--color-text: var(--color-light);
+	--color-text-secondary: var(--color-light-dim);
+	--color-muted: var(--color-light-muted);
+
+	--color-primary: var(--color-green);
+	--color-primary-hover: var(--color-green-dark);
+	--color-primary-light: var(--color-green-light);
+
+	--color-secondary: var(--color-indigo);
+	--color-secondary-hover: var(--color-indigo-dark);
+	--color-secondary-light: var(--color-indigo-light);
+
+	--color-success: var(--color-emerald);
+	--color-error: var(--color-red);
+	--color-warning: var(--color-yellow);
+	--color-info: var(--color-secondary);
+}
