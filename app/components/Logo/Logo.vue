@@ -1,6 +1,6 @@
 <template>
-	<div class="flex gap-2 items-center">
-		<NuxtImg src="/images/logo.png" width="64px" height="64px" alt="Logo" />
-		<span class="text-2xl font-bold pt-2">VueFlix</span>
+	<div class="inline-flex items-center gap-2">
+		<NuxtImg src="/images/logo.png" width="38px" height="38px" alt="Logo" />
+		<span class="text-2xl font-bold leading-0 pt-1">VueFlix</span>
 	</div>
 </template>
