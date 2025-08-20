@@ -8,9 +8,11 @@ const ShowSchema = z.object({
 	genres: z.array(z.string()),
 	premiered: z.string().nullable(),
 	ended: z.string().nullable(),
-	rating: z.object({
-		average: z.number().nullable(),
-	}).optional(),
+	rating: z
+		.object({
+			average: z.number().nullable(),
+		})
+		.optional(),
 	image: z.object({
 		medium: z.string(),
 		original: z.string(),
@@ -20,7 +22,4 @@ const ShowSchema = z.object({
 
 const ShowListSchema = z.array(ShowSchema)
 
-export {
-	ShowSchema,
-	ShowListSchema,
-}
+export { ShowSchema, ShowListSchema }

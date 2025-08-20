@@ -1,15 +1,19 @@
-import type { Show, ShowList, OrganizedShowList } from '~/shared/types/showTypes'
+import type {
+	Show,
+	ShowList,
+	OrganizedShowList,
+} from '~/shared/types/showTypes'
 
 const organizeShowsByGenre = (shows: ShowList): OrganizedShowList => {
 	const organizedShows: OrganizedShowList = {}
 
 	for (const show of shows) {
 		for (const genre of show.genres) {
-			(organizedShows[genre] ??= []).push(show)
+			;(organizedShows[genre] ??= []).push(show)
 		}
 	}
 
-	return organizedShows;
+	return organizedShows
 }
 
 const sortShowList = (shows: ShowList): ShowList => {
@@ -20,11 +24,7 @@ const sortShowList = (shows: ShowList): ShowList => {
 
 const sortOrganizedShowList = (shows: OrganizedShowList): OrganizedShowList =>
 	Object.fromEntries(
-		Object.entries(shows).map(([genre, list]) => [genre, sortShowList(list)])
+		Object.entries(shows).map(([genre, list]) => [genre, sortShowList(list)]),
 	)
 
-export {
-	organizeShowsByGenre,
-	sortShowList,
-	sortOrganizedShowList
-}
+export { organizeShowsByGenre, sortShowList, sortOrganizedShowList }

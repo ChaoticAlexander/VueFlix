@@ -18,17 +18,17 @@
 </template>
 
 <script setup lang="ts">
-import type { Show } from "~/shared/types/showTypes"
-import ShowCoverOverlay from "~/components/ShowCover/ShowCoverOverlay.vue"
+	import type { Show } from '~/shared/types/showTypes'
+	import ShowCoverOverlay from '~/components/ShowCover/ShowCoverOverlay.vue'
 
-defineProps<{
-	show: Show
-}>()
+	defineProps<{
+		show: Show
+	}>()
 </script>
 
 <style scoped>
-.show-cover:hover > .show-overlay {
-	display: block;
-	cursor: pointer;
-}
+	.show-cover:hover > .show-overlay {
+		display: block;
+		cursor: pointer;
+	}
 </style>

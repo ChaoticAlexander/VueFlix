@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "./colors.css";
+@import 'tailwindcss';
+@import './colors.css';
 
 /* GLOBAL SCROLLBAR STYLE */
 /* Applies to all scrollable elements */

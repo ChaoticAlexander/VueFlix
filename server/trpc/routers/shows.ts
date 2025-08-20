@@ -1,11 +1,14 @@
 import { baseProcedure, createTRPCRouter } from '~~/server/trpc/init'
 import { z } from 'zod'
 import { ShowListSchema } from '~/shared/schemas/showSchemas'
-import { organizeShowsByGenre, sortOrganizedShowList } from "~/shared/utils/showUtils";
+import {
+	organizeShowsByGenre,
+	sortOrganizedShowList,
+} from '~/shared/utils/showUtils'
 
 const fetchShows = async (page: number) => {
 	const res = await $fetch('https://api.tvmaze.com/shows?page=' + page)
-	return ShowListSchema.parse(res);
+	return ShowListSchema.parse(res)
 }
 
 export const showsRouter = createTRPCRouter({
@@ -26,7 +29,7 @@ export const showsRouter = createTRPCRouter({
 			const shows = await fetchShows(input.page)
 			return sortOrganizedShowList(organizeShowsByGenre(shows))
 		}),
-});
+})
 
 // export type definition of API
-export type ShowsRouter = typeof showsRouter;
+export type ShowsRouter = typeof showsRouter

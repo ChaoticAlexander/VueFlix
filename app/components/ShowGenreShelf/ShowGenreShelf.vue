@@ -8,10 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ShowList } from '~/shared/types/showTypes'
+	import type { ShowList } from '~/shared/types/showTypes'
 
-defineProps<{
-	genre: string,
-	list: ShowList
-}>()
+	defineProps<{
+		genre: string
+		list: ShowList
+	}>()
 </script>

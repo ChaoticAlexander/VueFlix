@@ -5,7 +5,7 @@
 			:class="iconClasses?.padding"
 			type="text"
 			placeholder="Search..."
-		>
+		/>
 		<Icon
 			v-if="icon"
 			:name="icon"
@@ -17,32 +17,32 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-	defineProps<{
-		icon?: string;
-		iconPosition?: "left" | "right";
-	}>(),
-	{
-		icon: undefined,
-		iconPosition: "left",
-	},
-);
+	const props = withDefaults(
+		defineProps<{
+			icon?: string
+			iconPosition?: 'left' | 'right'
+		}>(),
+		{
+			icon: undefined,
+			iconPosition: 'left',
+		},
+	)
 
-// Computes the correct classes based on given icon parameters.
-// Used for correct placement and spacing of icon on input.
-const iconClasses = computed(() => {
-	if (!props.icon) return
+	// Computes the correct classes based on given icon parameters.
+	// Used for correct placement and spacing of icon on input.
+	const iconClasses = computed(() => {
+		if (!props.icon) return
 
-	return props.iconPosition === "right"
-		? {
-			position: "right-3",
-			padding: "pl-4 pr-10",
-		}
-		: {
-			position: "left-3",
-			padding: "pl-10 pr-4",
-		}
-});
+		return props.iconPosition === 'right'
+			? {
+					position: 'right-3',
+					padding: 'pl-4 pr-10',
+				}
+			: {
+					position: 'left-3',
+					padding: 'pl-10 pr-4',
+				}
+	})
 
-const emit = defineEmits(["action"]);
+	const emit = defineEmits(['action'])
 </script>
