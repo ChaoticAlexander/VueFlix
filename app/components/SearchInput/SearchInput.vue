@@ -1,5 +1,6 @@
 <template>
 	<div class="group bg-surface/70 w-full rounded-lg backdrop-blur-lg">
+		<!--	Input field	-->
 		<div class="relative">
 			<input
 				ref="input-field"
@@ -10,14 +11,37 @@
 				@keyup="fetchSearchResults"
 			/>
 			<div class="icon-container flex items-center">
-				<Icon v-if="pending" name="mdi:loading" class="loading-icon animate-spin origin-center" @click="clearSearchResults" />
-				<Icon v-else-if="searchResults" name="mdi:close-circle" @click="clearSearchResults" />
+				<Icon
+					v-if="pending"
+					name="mdi:loading"
+					class="loading-icon origin-center animate-spin"
+					@click="clearSearchResults"
+				/>
+				<Icon
+					v-else-if="searchResults"
+					name="mdi:close-circle"
+					@click="clearSearchResults"
+				/>
 				<Icon v-else name="mdi:search" @click="fetchSearchResults" />
 			</div>
 		</div>
 
-		<div v-if="searchResults" class="hidden group-focus-within:block">
-			<SearchInputResults :search-results />
+		<!--	Search Results	-->
+		<div
+			v-if="searchResults"
+			class="hidden h-full max-h-[300px] w-full overflow-y-auto p-4 group-focus-within:block"
+		>
+			<SearchInputResultItem
+				v-for="result in searchResults"
+				:key="result.id"
+				:item="result"
+			/>
+			<div
+				v-if="!searchResults.length"
+				class="text-center text-sm text-gray-400"
+			>
+				No results
+			</div>
 		</div>
 	</div>
 </template>

@@ -10,9 +10,19 @@
 		>
 			<div
 				ref="scroller"
-				class="scrollbar-none flex gap-3 overflow-x-auto"
+				class="scrollbar-none overflow-x-auto h-[300px]"
 			>
-				<ShowCover v-for="show in list" :key="show.id" :show />
+				<VirtualScroller :list="list" :scroller="scroller!">
+					<template #default="{ item }">
+						<ShowCover :show="item" />
+					</template>
+
+					<template #post>
+						<template v-if="loading">
+							<ShowCoverSkeleton v-for="i in 5" :key="i" />
+						</template>
+					</template>
+				</VirtualScroller>
 			</div>
 		</div>
 	</div>
@@ -20,14 +30,28 @@
 
 <script setup lang="ts">
 	import type { ShowList } from '~/shared/types/showTypes'
+	import ShowCoverSkeleton from '~/components/ShowCover/ShowCoverSkeleton.vue'
 
-	defineProps<{
+	const props = defineProps<{
 		genre: string
 		list: ShowList
+		loading?: boolean
 	}>()
 
 	const scroller = useTemplateRef<HTMLDivElement>('scroller')
 	const { arrivedState } = useScroll(scroller)
+	const { arrivedState: almost, directions } = useScroll(scroller, {
+		offset: {
+			right: 300
+		}
+	})
+
+	const emit = defineEmits<{
+		loadMore: [string]
+	}>()
+	watch(() => almost.right, () => {
+		if (!directions.left) emit('loadMore', props.genre)
+	})
 </script>
 
 <style scoped>

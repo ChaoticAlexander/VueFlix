@@ -17,6 +17,9 @@ const organizeShowsByGenre = (shows: ShowList): OrganizedShowList => {
 	return organizedShows
 }
 
+const filterShowsByGenre = (shows: ShowList, genre: string): ShowList =>
+	shows.filter((show) => show.genres.includes(genre))
+
 const sortShowList = (shows: ShowList): ShowList => {
 	if (!shows) return []
 	const score = (show: Show) => show.rating?.average ?? -Infinity
@@ -42,4 +45,4 @@ const getShowRunningYearsString = (show: Show | ShowSearchResultItem) => {
 	return `(${premiereYear === endYear ? premiereYear : `${premiereYear} - ${endYear}`})`
 }
 
-export { organizeShowsByGenre, sortShowList, sortOrganizedShowList, getShowRunningYearsString }
+export { organizeShowsByGenre, sortShowList, sortOrganizedShowList, filterShowsByGenre, getShowRunningYearsString }

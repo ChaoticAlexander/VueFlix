@@ -14,11 +14,13 @@ const ShowSchema = z.object({
 			average: z.number().nullable(),
 		})
 		.nullish(),
-	image: z.object({
-		medium: z.string(),
-		original: z.string(),
-	}),
-	summary: z.string(),
+	image: z
+		.object({
+			medium: z.string(),
+			original: z.string(),
+		})
+		.nullish(),
+	summary: z.string().nullish(),
 })
 
 const ShowListSchema = z.array(ShowSchema)
@@ -36,15 +38,10 @@ const RawSearchResultSchema = z.object({
 		.object({
 			medium: z.string(),
 		})
-		.nullable()
+		.nullish()
 		.transform((e) => e?.medium),
 	premiered: z.string().nullable(),
 	ended: z.string().nullable(),
-})
-
-// Enforce image on search result for proper type-safety
-const ShowSearchResultWithImage = RawSearchResultSchema.extend({
-	image: z.string(),
 })
 
 const ShowSearchResultSchema = z
@@ -54,14 +51,7 @@ const ShowSearchResultSchema = z
 			show: RawSearchResultSchema,
 		}),
 	)
-	.transform((results) => {
-		// filters out shows without images. (usually duplicates)
-		const out: Array<z.infer<typeof RawSearchResultSchema>> = []
-		for (const { show } of results) {
-			if (show.image) out.push(show)
-		}
-		return out
-	})
-	.pipe(z.array(ShowSearchResultWithImage))
+	.transform((list) =>
+		list.map(({ show }) => show))
 
 export { ShowSchema, ShowListSchema, ShowSearchResultSchema }

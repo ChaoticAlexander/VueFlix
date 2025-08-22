@@ -2,7 +2,7 @@
 	<div class="flex items-center gap-4 p-3 cursor-pointer hover:bg-primary-hover/30 rounded-md">
 		<div class="h-12 w-12 overflow-clip rounded-md">
 			<NuxtImg
-				:src="item.image"
+				:src="item.image ?? '/images/generic-cover.png'"
 				height="48px"
 				width="48px"
 				:alt="`${item.name} Cover`"

@@ -1,5 +1,5 @@
 <template>
-	<header class="z-10 flex items-center justify-between">
+	<header class="flex items-center justify-between">
 		<NuxtImg
 			src="/images/logo.png"
 			width="48px"

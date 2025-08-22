@@ -16,6 +16,7 @@
 		"@nuxt/image": "1.11.0",
 		"@nuxt/test-utils": "3.19.2",
 		"@tailwindcss/vite": "^4.1.12",
+		"@tanstack/vue-virtual": "^3.13.12",
 		"@trpc/client": "^11.4.4",
 		"@trpc/server": "^11.4.4",
 		"@vueuse/nuxt": "13.7.0",

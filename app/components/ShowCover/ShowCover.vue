@@ -3,7 +3,7 @@
 		class="show-cover bg-surface relative h-[300px] w-[200px] shrink-0 overflow-clip rounded-lg"
 	>
 		<NuxtImg
-			:src="show.image.medium"
+			:src="show?.image?.medium ?? '/images/generic-cover.png'"
 			height="300px"
 			width="200px"
 			:alt="show.name"
