@@ -2,6 +2,7 @@ import type {
 	Show,
 	ShowList,
 	OrganizedShowList,
+	ShowSearchResultItem
 } from '~/shared/types/showTypes'
 
 const organizeShowsByGenre = (shows: ShowList): OrganizedShowList => {
@@ -27,4 +28,18 @@ const sortOrganizedShowList = (shows: OrganizedShowList): OrganizedShowList =>
 		Object.entries(shows).map(([genre, list]) => [genre, sortShowList(list)]),
 	)
 
-export { organizeShowsByGenre, sortShowList, sortOrganizedShowList }
+const getShowRunningYearsString = (show: Show | ShowSearchResultItem) => {
+	const premiereYear = show.premiered
+		? new Date(show.premiered).getFullYear()
+		: null
+
+	const endYear = show.ended
+		? new Date(show.ended).getFullYear()
+		: 'Ongoing'
+
+	if (!premiereYear) return ''
+
+	return `(${premiereYear === endYear ? premiereYear : `${premiereYear} - ${endYear}`})`
+}
+
+export { organizeShowsByGenre, sortShowList, sortOrganizedShowList, getShowRunningYearsString }

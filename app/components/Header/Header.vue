@@ -1,13 +1,15 @@
 <template>
-	<div class="flex items-center justify-between">
-		<Logo />
-		<Input
+	<header class="z-10 flex items-center justify-between">
+		<NuxtImg
+			src="/images/logo.png"
+			width="48px"
+			height="48px"
+			alt="Logo"
+		/>
+		<SearchInput
 			icon="mdi:search"
 			icon-position="right"
-			class="max-w-xs"
-			@action="console.log('clicked')"
+			class="ml-auto max-w-xs fixed right-8 top-8 z-20"
 		/>
-	</div>
+	</header>
 </template>
-
-<script setup lang="ts"></script>

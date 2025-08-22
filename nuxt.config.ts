@@ -14,6 +14,13 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	fonts: {
+		families: [{
+			name: 'Montserrat',
+			provider: 'google',
+			weights: [400, 600, 700],
+		}]
+	},
 	css: ['~/assets/css/main.css'],
 	vite: {
 		plugins: [tailwindcss()],

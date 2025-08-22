@@ -1,6 +1,6 @@
 import { baseProcedure, createTRPCRouter } from '~~/server/trpc/init'
 import { z } from 'zod'
-import { ShowListSchema } from '~/shared/schemas/showSchemas'
+import { ShowListSchema, ShowSearchResultSchema } from '~/shared/schemas/showSchemas'
 import {
 	organizeShowsByGenre,
 	sortOrganizedShowList,
@@ -19,7 +19,7 @@ export const showsRouter = createTRPCRouter({
 			}),
 		)
 		.query(({ input }) => fetchShows(input.page)),
-	genres: baseProcedure
+	showsByGenre: baseProcedure
 		.input(
 			z.object({
 				page: z.number().default(1),
@@ -28,6 +28,16 @@ export const showsRouter = createTRPCRouter({
 		.query(async ({ input }) => {
 			const shows = await fetchShows(input.page)
 			return sortOrganizedShowList(organizeShowsByGenre(shows))
+		}),
+	search: baseProcedure
+		.input(z.object({
+			query: z.string().trim().min(1)
+		}))
+		.query(async ({ input }) => {
+			const searchResult = await $fetch(
+				'https://api.tvmaze.com/search/shows?q=' + encodeURI(input.query),
+			)
+			return ShowSearchResultSchema.parse(searchResult)
 		}),
 })
 

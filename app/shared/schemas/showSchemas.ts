@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+// Show Index Schema
 const ShowSchema = z.object({
 	id: z.number(),
 	name: z.string(),
@@ -12,7 +13,7 @@ const ShowSchema = z.object({
 		.object({
 			average: z.number().nullable(),
 		})
-		.optional(),
+		.nullish(),
 	image: z.object({
 		medium: z.string(),
 		original: z.string(),
@@ -22,4 +23,45 @@ const ShowSchema = z.object({
 
 const ShowListSchema = z.array(ShowSchema)
 
-export { ShowSchema, ShowListSchema }
+// Search Result Schemas
+const RawSearchResultSchema = z.object({
+	id: z.number(),
+	name: z.string(),
+	rating: z
+		.object({
+			average: z.number().nullable(),
+		})
+		.nullish(),
+	image: z
+		.object({
+			medium: z.string(),
+		})
+		.nullable()
+		.transform((e) => e?.medium),
+	premiered: z.string().nullable(),
+	ended: z.string().nullable(),
+})
+
+// Enforce image on search result for proper type-safety
+const ShowSearchResultWithImage = RawSearchResultSchema.extend({
+	image: z.string(),
+})
+
+const ShowSearchResultSchema = z
+	.array(
+		z.object({
+			score: z.number(),
+			show: RawSearchResultSchema,
+		}),
+	)
+	.transform((results) => {
+		// filters out shows without images. (usually duplicates)
+		const out: Array<z.infer<typeof RawSearchResultSchema>> = []
+		for (const { show } of results) {
+			if (show.image) out.push(show)
+		}
+		return out
+	})
+	.pipe(z.array(ShowSearchResultWithImage))
+
+export { ShowSchema, ShowListSchema, ShowSearchResultSchema }

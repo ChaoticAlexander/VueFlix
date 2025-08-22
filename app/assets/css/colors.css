@@ -8,8 +8,8 @@
 	--color-light-muted: #b3b3b3;
 	--color-light-dim: #7a7a7a;
 
-	--color-green: #42b883;
-	--color-green-dark: #2c9c6b;
+	--color-green: #39b189;
+	--color-green-dark: #027b6d;
 	--color-green-light: #65d9a5;
 
 	--color-indigo: #6366f1;
@@ -19,11 +19,6 @@
 	--color-red: #ef4444;
 	--color-yellow: #f59e0b;
 	--color-emerald: #22c55e;
-
-	background-color: var(--color-background);
-	color: var(--color-text);
-	font-family: 'Montserrat', Arial, sans-serif;
-	box-sizing: border-box;
 }
 
 @theme {

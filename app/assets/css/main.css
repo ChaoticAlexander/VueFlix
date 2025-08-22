@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 @import './colors.css';
+@import './utility.css';
+
+:root {
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: 'Montserrat', Arial, sans-serif;
+	box-sizing: border-box;
+}
 
 /* GLOBAL SCROLLBAR STYLE */
 /* Applies to all scrollable elements */

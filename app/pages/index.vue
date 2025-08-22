@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col gap-8">
-		<ShowGenreShelf
+		<ShowGenreRow
 			v-for="(list, genre) in organizedShows"
 			:key="genre"
 			:genre
@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 	const { $trpc } = useNuxtApp()
-	const { data: organizedShows } = await $trpc.shows.genres.useQuery({})
+	const { data: organizedShows } = await $trpc.shows.showsByGenre.useQuery({})
 </script>
 
 <style scoped></style>
