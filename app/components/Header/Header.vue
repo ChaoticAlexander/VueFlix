@@ -1,11 +1,13 @@
 <template>
 	<header class="flex items-center justify-between">
-		<NuxtImg
-			src="/images/logo.png"
-			width="48px"
-			height="48px"
-			alt="Logo"
-		/>
+		<NuxtLink :to="{name: 'home'}">
+			<NuxtImg
+				src="/images/logo.png"
+				width="48px"
+				height="48px"
+				alt="Logo"
+			/>
+		</NuxtLink>
 		<SearchInput
 			icon="mdi:search"
 			icon-position="right"

@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { baseProcedure, createTRPCRouter } from '~~/server/trpc/init'
 import {
 	ShowIndexSchema,
+	ShowDetailsSchema,
 	ShowSearchResultListSchema,
 } from '~/shared/schemas/showSchemas'
 import {
@@ -35,6 +36,18 @@ export const showsRouter = createTRPCRouter({
 				'https://api.tvmaze.com/search/shows?q=' + encodeURI(input.query),
 			)
 			return ShowSearchResultListSchema.parse(res)
+		}),
+	details: baseProcedure
+		.input(z.object({ id: z.string().trim() }))
+		.query(async ({ input }) => {
+			const id = String(input.id)
+			const base = `https://api.tvmaze.com/shows/${id}`
+			const endpoints = ['', '/images', '/cast']
+
+			const [show, images, cast] = await Promise.all(
+				endpoints.map((suffix) => $fetch(`${base}${suffix}`)),
+			)
+			return ShowDetailsSchema.parse({ show, images, cast })
 		}),
 })
 

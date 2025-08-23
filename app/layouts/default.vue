@@ -3,7 +3,7 @@
 		<div class="mb-6 relative">
 			<Header />
 		</div>
-		<div class="content mt-8">
+		<div class="content mt-12">
 			<slot />
 		</div>
 	</div>

@@ -1,13 +1,33 @@
 import type { z } from 'zod'
 import type { RawShowSchema } from '~/shared/schemas/RawShowSchema'
-import type { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema } from '~/shared/schemas/showSchemas'
+import type {
+	ShowIndexItemSchema,
+	ShowIndexSchema,
+	ShowSearchResultItemSchema,
+	ShowSearchResultListSchema,
+} from '~/shared/schemas/showSchemas'
+import type {
+	ShowImageSchema,
+	ShowImagesSchema,
+} from '~/shared/schemas/ShowImageSchemas'
+import type {
+	CastListSchema,
+	CastMemberSchema,
+} from '~/shared/schemas/ShowCastSchemas'
 
-type Show = z.infer<typeof RawShowSchema>
-type ShowIndexItem = z.infer<typeof ShowIndexItemSchema>
-type ShowIndex = z.infer<typeof ShowIndexSchema>
-type OrganizedShowList<T> = Record<string, T[]>
+// Show Types
+export type Show = z.infer<typeof RawShowSchema>
+export type ShowIndexItem = z.infer<typeof ShowIndexItemSchema>
+export type ShowIndex = z.infer<typeof ShowIndexSchema>
+export type OrganizedShowList<T> = Record<string, T[]>
 
-type ShowSearchResultList = z.infer<typeof ShowSearchResultListSchema>
-type ShowSearchResultItem = z.infer<typeof ShowSearchResultItemSchema>
+export type ShowSearchResultList = z.infer<typeof ShowSearchResultListSchema>
+export type ShowSearchResultItem = z.infer<typeof ShowSearchResultItemSchema>
 
-export type { Show, ShowIndexItem, ShowIndex, OrganizedShowList, ShowSearchResultList, ShowSearchResultItem }
+// Image Types
+export type ShowImage = z.infer<typeof ShowImageSchema>
+export type ShowImages = z.infer<typeof ShowImagesSchema>
+
+// Cast Types
+export type CastMember = z.infer<typeof CastMemberSchema>
+export type CastList = z.infer<typeof CastListSchema>

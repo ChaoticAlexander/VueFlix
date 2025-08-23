@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center gap-4 p-3 cursor-pointer hover:bg-primary-hover/30 rounded-md">
+	<NuxtLink :to="{ name: 'details-page', params: { id: item.id } }" class="flex items-center gap-4 p-3 cursor-pointer hover:bg-primary-hover/30 rounded-md">
 		<div class="h-12 w-12 overflow-clip rounded-md">
 			<NuxtImg
 				:src="item.image?.medium ?? '/images/generic-cover.png'"
@@ -15,7 +15,7 @@
 				{{ getShowRunningYearsString(item) }}
 			</div>
 		</div>
-	</div>
+	</NuxtLink>
 </template>
 
 <script setup lang="ts">

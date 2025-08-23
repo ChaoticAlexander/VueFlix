@@ -44,11 +44,11 @@ const getShowRunningYearsString = <
 >(
 	show: T,
 ): string => {
-	const premiereYear = show.premiered
+	const premiereYear = show?.premiered
 		? new Date(show.premiered).getFullYear()
 		: null
 
-	const endYear = show.ended ? new Date(show.ended).getFullYear() : 'Ongoing'
+	const endYear = show?.ended ? new Date(show.ended).getFullYear() : 'Ongoing'
 
 	if (!premiereYear) return ''
 

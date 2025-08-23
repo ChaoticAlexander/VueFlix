@@ -13,7 +13,10 @@
 </template>
 
 <script setup lang="ts">
-	import type { ShowIndexItem, OrganizedShowList } from '~/shared/types/showTypes'
+	import type {
+		ShowIndexItem,
+		OrganizedShowList,
+	} from '~/shared/types/showTypes'
 
 	const { $trpc } = useNuxtApp()
 	const loading = ref<Record<string, boolean>>({})
@@ -25,15 +28,18 @@
 
 	watchEffect(() => data.value && (organizedShows.value = data.value))
 
-	const loadMore = async (genre: string) => {
-		loading.value[genre] = true
+	// one debouncer per genre
+	const debouncers = new Map<string, ReturnType<typeof useDebounceFn>>()
 
-		// Make sure the next page always has results. (due to how data is being provided by tvmaze)
+	const loadMoreRaw = async (genre: string) => {
+		if ((organizedShows.value[genre] ?? []).length > 150) return
+
+		// Make sure the next page always has results.
+		// (due to how data is being provided by tvmaze, results for each category are not guaranteed.)
 		for (let tries = 0; tries < 3; tries++) {
 			const page = (nextPage[genre] ??= 2)
 			const more = await $trpc.shows.byGenre.query({ genre, page })
 			nextPage[genre] = page + 1
-
 			if (more.length) {
 				organizedShows.value[genre]!.push(...more)
 				break
@@ -42,6 +48,22 @@
 
 		loading.value[genre] = false
 	}
+
+	const loadMore = (genre: string) => {
+		if (loading.value[genre]) return
+		loading.value[genre] = true
+
+		let fn = debouncers.get(genre)
+		if (!fn) {
+			fn = useDebounceFn((g: string) => loadMoreRaw(g), 300)
+			debouncers.set(genre, fn)
+		}
+		fn(genre)
+	}
+
+	definePageMeta({
+		name: 'home',
+	})
 </script>
 
 <style scoped></style>

@@ -1,5 +1,6 @@
 <template>
-	<div
+	<NuxtLink
+		:to="{ name: 'details-page', params: { id: show.id } }"
 		class="show-cover bg-surface relative h-[300px] w-[200px] shrink-0 overflow-clip rounded-lg"
 	>
 		<NuxtImg
@@ -14,7 +15,7 @@
 			class="h-full w-full object-cover"
 		/>
 		<ShowCoverOverlay :show class="show-overlay invisible opacity-0 backdrop-blur-xs" />
-	</div>
+	</NuxtLink>
 </template>
 
 <script setup lang="ts">

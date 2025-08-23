@@ -1,5 +1,7 @@
 import { z } from 'zod'
 import { RawShowSchema } from './RawShowSchema'
+import { ShowImagesSchema } from './ShowImageSchemas'
+import { ShowCastListSchema } from './ShowCastSchemas'
 
 // Index Page Show Schema
 const ShowIndexItemSchema = RawShowSchema.pick({
@@ -34,4 +36,10 @@ const ShowSearchResultListSchema = z
 	.transform((list) =>
 		list.map(({ show }) => show))
 
-export { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema }
+const ShowDetailsSchema = z.object({
+	show: RawShowSchema,
+	images: ShowImagesSchema,
+	cast: ShowCastListSchema,
+})
+
+export { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema, ShowDetailsSchema }
