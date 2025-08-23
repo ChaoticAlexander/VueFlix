@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-	import type { Show } from '~/shared/types/showTypes'
+	import type { ShowIndexItem } from '~/shared/types/showTypes'
 	import ShowCoverOverlay from '~/components/ShowCover/ShowCoverOverlay.vue'
 
 	defineProps<{
-		show: Show
+		show: ShowIndexItem
 	}>()
 </script>
 

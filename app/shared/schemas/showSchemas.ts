@@ -1,57 +1,37 @@
 import { z } from 'zod'
+import { RawShowSchema } from './RawShowSchema'
 
-// Show Index Schema
-const ShowSchema = z.object({
-	id: z.number(),
-	name: z.string(),
-	url: z.string(),
-	status: z.string(),
-	genres: z.array(z.string()),
-	premiered: z.string().nullable(),
-	ended: z.string().nullable(),
-	rating: z
-		.object({
-			average: z.number().nullable(),
-		})
-		.nullish(),
-	image: z
-		.object({
-			medium: z.string(),
-			original: z.string(),
-		})
-		.nullish(),
-	summary: z.string().nullish(),
+// Index Page Show Schema
+const ShowIndexItemSchema = RawShowSchema.pick({
+	id: true,
+	name: true,
+	url: true,
+	genres: true,
+	premiered: true,
+	ended: true,
+	rating: true,
+	image: true,
+	summary: true
 })
+const ShowIndexSchema = z.array(ShowIndexItemSchema)
 
-const ShowListSchema = z.array(ShowSchema)
-
-// Search Result Schemas
-const RawSearchResultSchema = z.object({
-	id: z.number(),
-	name: z.string(),
-	rating: z
-		.object({
-			average: z.number().nullable(),
-		})
-		.nullish(),
-	image: z
-		.object({
-			medium: z.string(),
-		})
-		.nullish()
-		.transform((e) => e?.medium),
-	premiered: z.string().nullable(),
-	ended: z.string().nullable(),
+// Search Results Schemas
+const ShowSearchResultItemSchema = RawShowSchema.pick({
+	id: true,
+	name: true,
+	rating: true,
+	image: true,
+	premiered: true,
+	ended: true
 })
-
-const ShowSearchResultSchema = z
+const ShowSearchResultListSchema = z
 	.array(
 		z.object({
 			score: z.number(),
-			show: RawSearchResultSchema,
+			show: ShowSearchResultItemSchema,
 		}),
 	)
 	.transform((list) =>
 		list.map(({ show }) => show))
 
-export { ShowSchema, ShowListSchema, ShowSearchResultSchema }
+export { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema }

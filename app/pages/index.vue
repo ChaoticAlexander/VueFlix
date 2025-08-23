@@ -13,12 +13,12 @@
 </template>
 
 <script setup lang="ts">
-	import type { OrganizedShowList } from '~/shared/types/showTypes'
+	import type { ShowIndexItem, OrganizedShowList } from '~/shared/types/showTypes'
 
 	const { $trpc } = useNuxtApp()
 	const loading = ref<Record<string, boolean>>({})
 	const nextPage = reactive<Record<string, number>>({})
-	const organizedShows = ref<OrganizedShowList>({})
+	const organizedShows = ref<OrganizedShowList<ShowIndexItem>>({})
 	const { data } = await $trpc.shows.organized.useQuery(undefined, {
 		watch: false,
 	})

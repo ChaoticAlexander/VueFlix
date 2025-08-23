@@ -1,15 +1,13 @@
-import type {
-	Show,
-	ShowList,
-	OrganizedShowList,
-	ShowSearchResultItem
-} from '~/shared/types/showTypes'
+import type { OrganizedShowList } from '~/shared/types/showTypes'
 
-const organizeShowsByGenre = (shows: ShowList): OrganizedShowList => {
-	const organizedShows: OrganizedShowList = {}
+// Organizes a given show list by genre
+const organizeShowListByGenre = <T extends { genres?: string[] }>(
+	shows: T[],
+): OrganizedShowList<T> => {
+	const organizedShows: OrganizedShowList<T> = {}
 
 	for (const show of shows) {
-		for (const genre of show.genres) {
+		for (const genre of show?.genres ?? []) {
 			;(organizedShows[genre] ??= []).push(show)
 		}
 	}
@@ -17,32 +15,50 @@ const organizeShowsByGenre = (shows: ShowList): OrganizedShowList => {
 	return organizedShows
 }
 
-const filterShowsByGenre = (shows: ShowList, genre: string): ShowList =>
-	shows.filter((show) => show.genres.includes(genre))
+// Filters a given list of shows by genre, returning only the items that have that genre
+const filterShowListByGenre = <T extends { genres?: string[] }>(
+	shows: T[],
+	genre: string,
+): T[] => shows.filter((show) => show.genres?.includes(genre))
 
-const sortShowList = (shows: ShowList): ShowList => {
+// Sorts a list of shows by rating
+const sortShowListByRating = <T extends { rating?: number }>(
+	shows: T[],
+): T[] => {
 	if (!shows) return []
-	const score = (show: Show) => show.rating?.average ?? -Infinity
+	const score = (show: T) => show.rating ?? -Infinity
 	return [...shows].sort((a, b) => score(b) - score(a))
 }
 
-const sortOrganizedShowList = (shows: OrganizedShowList): OrganizedShowList =>
+// Sorts an organized list of shows, by rating
+const sortOrganizedShowListByRating = <T extends { rating?: number }>(
+	shows: OrganizedShowList<T>,
+): OrganizedShowList<T> =>
 	Object.fromEntries(
-		Object.entries(shows).map(([genre, list]) => [genre, sortShowList(list)]),
+		Object.entries(shows).map(([genre, list]) => [genre, sortShowListByRating(list)]),
 	)
 
-const getShowRunningYearsString = (show: Show | ShowSearchResultItem) => {
+// returns the running years of a show as a string. example: (2010 - 2014)
+const getShowRunningYearsString = <
+	T extends { premiered: string | null; ended: string | null },
+>(
+	show: T,
+): string => {
 	const premiereYear = show.premiered
 		? new Date(show.premiered).getFullYear()
 		: null
 
-	const endYear = show.ended
-		? new Date(show.ended).getFullYear()
-		: 'Ongoing'
+	const endYear = show.ended ? new Date(show.ended).getFullYear() : 'Ongoing'
 
 	if (!premiereYear) return ''
 
 	return `(${premiereYear === endYear ? premiereYear : `${premiereYear} - ${endYear}`})`
 }
 
-export { organizeShowsByGenre, sortShowList, sortOrganizedShowList, filterShowsByGenre, getShowRunningYearsString }
+export {
+	organizeShowListByGenre,
+	sortShowListByRating,
+	sortOrganizedShowListByRating,
+	filterShowListByGenre,
+	getShowRunningYearsString,
+}

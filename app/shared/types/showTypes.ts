@@ -1,11 +1,13 @@
 import type { z } from 'zod'
-import type { ShowSchema, ShowListSchema, ShowSearchResultSchema } from '~/shared/schemas/showSchemas'
+import type { RawShowSchema } from '~/shared/schemas/RawShowSchema'
+import type { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema } from '~/shared/schemas/showSchemas'
 
-type Show = z.infer<typeof ShowSchema>
-type ShowList = z.infer<typeof ShowListSchema>
-type OrganizedShowList = Record<string, ShowList>
+type Show = z.infer<typeof RawShowSchema>
+type ShowIndexItem = z.infer<typeof ShowIndexItemSchema>
+type ShowIndex = z.infer<typeof ShowIndexSchema>
+type OrganizedShowList<T> = Record<string, T[]>
 
-type ShowSearchResults = z.infer<typeof ShowSearchResultSchema>
-type ShowSearchResultItem = ShowSearchResults[number]
+type ShowSearchResultList = z.infer<typeof ShowSearchResultListSchema>
+type ShowSearchResultItem = z.infer<typeof ShowSearchResultItemSchema>
 
-export type { Show, ShowList, OrganizedShowList, ShowSearchResults, ShowSearchResultItem }
+export type { Show, ShowIndexItem, ShowIndex, OrganizedShowList, ShowSearchResultList, ShowSearchResultItem }

@@ -29,12 +29,12 @@
 </template>
 
 <script setup lang="ts">
-	import type { ShowList } from '~/shared/types/showTypes'
+	import type { ShowIndex } from '~/shared/types/showTypes'
 	import ShowCoverSkeleton from '~/components/ShowCover/ShowCoverSkeleton.vue'
 
 	const props = defineProps<{
 		genre: string
-		list: ShowList
+		list: ShowIndex
 		loading?: boolean
 	}>()
 
