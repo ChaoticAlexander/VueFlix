@@ -39,6 +39,8 @@
 		<div
 			v-if="searchResults"
 			class="hidden h-full max-h-[300px] w-full overflow-y-auto p-4 group-focus-within:block"
+			@mousedown.prevent
+			@touchstart.stop
 		>
 			<SearchInputResultItem
 				v-for="result in searchResults"

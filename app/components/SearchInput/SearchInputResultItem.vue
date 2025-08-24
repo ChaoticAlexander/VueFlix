@@ -2,6 +2,9 @@
 	<NuxtLink
 		:to="{ name: 'details-page', params: { id: item.id } }"
 		class="hover:bg-primary-hover/30 flex cursor-pointer items-center gap-4 rounded-md p-3"
+		@mousedown.prevent
+		@touchstart.stop
+		@click="handleClick"
 	>
 		<div class="h-12 w-12 overflow-clip rounded-md">
 			<ShowCover
@@ -29,6 +32,10 @@
 	import { getShowRunningYearsString } from '~/shared/utils/showUtils'
 
 	defineProps<{ item: ShowSearchResultItem }>()
+
+	const handleClick = () => {
+		;(document.activeElement as HTMLElement | null)?.blur()
+	}
 </script>
 
 <style scoped></style>
