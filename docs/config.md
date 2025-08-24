@@ -8,7 +8,8 @@
 - TailwindCSS v4 plugin via Vite integration
 - Transpile: `trpc-nuxt`
 - Modules: `@nuxt/eslint`, `@nuxt/fonts`, `@nuxt/icon`, `@nuxt/image`, `@vueuse/nuxt`, `@nuxt/test-utils/module`
-- Image domains: `static.tvmaze.com`
+- `compatibilityDate: '2025-07-15'`
+- `devtools: { enabled: true }`
 
 ### Package Scripts (`package.json`)
 

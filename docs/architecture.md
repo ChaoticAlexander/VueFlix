@@ -1,6 +1,6 @@
 ## Architecture Overview
 
-VueFlix is a Nuxt 4 application with SSR enabled that consumes the public TVMaze API via a thin server layer built with tRPC. Data contracts are defined with Zod and inferred for TypeScript types. The UI is composed of small Vue 3 SFC components, TailwindCSS utilities, and Nuxt Image.
+VueFlix is a Nuxt 4 application with SSR enabled that consumes the public TVMaze API via a thin server layer built with tRPC. Data contracts are defined with Zod and inferred for TypeScript types. The UI is composed of small Vue 3 SFC components and TailwindCSS utilities. Images from TVMaze are rendered with native `<img>` elements (with graceful fallbacks); `NuxtImg` is used only for static/local assets like the logo.
 
 High-level:
 

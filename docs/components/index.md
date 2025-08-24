@@ -45,11 +45,14 @@ This section lists app components with their props/slots/events and primary usag
 ### Show Cover
 
 - `components/ShowCover/ShowCover.vue`
-  - Props: `{ show: ShowIndexItem }`
-  - Wraps image and hover overlay
+  - Props: `{ src?: string, alt?: string, loading?: 'lazy'|'eager', decoding?: 'async'|'auto'|'sync', fetchpriority?: 'high'|'low'|'auto', imgClass?: string, height?: number|string, width?: number|string }`
+  - Behavior: preloads via `useImage` and falls back to `/images/generic-cover.png` if loading fails.
 - `components/ShowCover/ShowCoverOverlay.vue`
   - Props: `{ show: ShowIndexItem }`
   - Uses `Tag` and `getShowRunningYearsString`
+- `components/ShowCover/ShowIndexCover.vue`
+  - Props: `{ show: ShowIndexItem }`
+  - Composes `ShowCover` and `ShowCoverOverlay` and links to the show details page.
 - `components/ShowCover/ShowCoverSkeleton.vue`
   - Skeleton placeholder
 

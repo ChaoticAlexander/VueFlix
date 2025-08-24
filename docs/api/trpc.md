@@ -7,9 +7,11 @@ The app exposes a typed RPC API consumed by the Nuxt client.
 - Routers root: `server/trpc/routers/index.ts`
 - Shows router: `server/trpc/routers/showsRouter.ts`
 
+Client uses `createTRPCNuxtClient` with `httpBatchLink` pointing to `/api/trpc` and exposes `$trpc` to Nuxt via injection.
+
 ### Context
 
-`server/trpc/init.ts` defines `createTRPCContext(event)` and sets up the base `t` instance, with a centralized error formatter mapping Zod errors to a generic "Invalid input." and stripping stack traces in production.
+`server/trpc/init.ts` defines `createTRPCContext(event)` and sets up the base `t` instance, with a centralized error formatter mapping Zod errors to a generic "Invalid input.". Stack traces are shown in dev and stripped in production.
 
 ### Procedures (shows)
 

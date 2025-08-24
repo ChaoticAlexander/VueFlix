@@ -11,4 +11,8 @@ Types are inferred from Zod schemas and re-exported from `app/shared/types/showT
 
 Location: `app/shared/types/showTypes.ts`
 
+Notes:
+
+- `OrganizedShowList<T>` is a simple `Record<string, T[]>` used by the home page to group shows by genre.
+
 Related: [schemas.md](./schemas.md)

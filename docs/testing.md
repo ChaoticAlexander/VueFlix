@@ -19,5 +19,6 @@ Scripts:
 
 - `tests/unit/showsRouter.errors.spec.ts`
   - Mocks `$fetch` and asserts error mapping to `SERVICE_UNAVAILABLE` for `search` and `details`.
+  - Validates the error formatter shows stack traces only in development.
 
 Related: [schemas.md](./schemas.md), [api/trpc.md](./api/trpc.md)

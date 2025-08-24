@@ -14,7 +14,7 @@ Why these tools:
 - tRPC: end-to-end typesafe API without writing OpenAPI/REST boilerplate. Procedures are collocated in `server/trpc/routers`, and the client is generated via `app/plugins/trpc.ts`.
 - Zod: runtime validation + compile-time inference for all external data. Every upstream response is parsed and transformed (e.g., images/cast mapping) before it touches the UI.
 - TailwindCSS v4: utility-first styling with a tiny layer of design tokens (`app/assets/css/colors.css`) and a couple of custom utilities.
-- Nuxt Image: optimized images with domain allow-listing for TVMaze assets.
+- Nuxt Image: used for local/static assets (e.g., logo). TVMaze images are rendered via native `<img>` with a fallback image.
 - @vueuse/nuxt: composables for scroll/visibility/media queries used across the UI.
 - @tanstack/vue-virtual: lightweight, reliable virtualization for horizontally scrolling rows.
 - Vitest + @nuxt/test-utils: fast unit tests for schemas, utilities, and API error handling.
@@ -90,7 +90,7 @@ pnpm test
 ## Configuration & Environment
 
 - No secrets or environment variables are required. The app calls the public TVMaze API.
-- Image domains are restricted via `nuxt.config.ts` (`image.domains`).
+- No remote image domain allow-list is configured; remote images are handled via native `<img>`.
 
 ---
 

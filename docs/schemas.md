@@ -17,8 +17,8 @@ Defines the full TVMaze Show object; optional fields support `null`/`undefined` 
 
 ### ShowImageSchemas
 
-- `ShowImageSchema` validates image entries.
-- `ShowImagesSchema` transforms the array into a map keyed by `type` with `{ original, medium? }` URLs. Null `type` entries are ignored, first occurrence wins.
+- `ShowImageSchema` validates image entries including `resolutions` metadata.
+- `ShowImagesSchema` transforms the array into a map keyed by `type` with `{ original, medium? }` URLs. Entries with `type: null` are ignored; the first occurrence for a given type wins.
 
 ### ShowCastSchemas
 
