@@ -3,9 +3,6 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-	compatibilityDate: '2025-07-15',
-	devtools: { enabled: true },
-	ssr: false,
 	app: {
 		head: {
 			title: 'VueFlix',
@@ -14,6 +11,10 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	build: {
+		transpile: ['trpc-nuxt'],
+	},
+	compatibilityDate: '2025-07-15',
 	fonts: {
 		families: [
 			{
@@ -24,25 +25,18 @@ export default defineNuxtConfig({
 		],
 	},
 	css: ['~/assets/css/main.css'],
-	vite: {
-		plugins: [tailwindcss()],
-	},
-	build: {
-		transpile: ['trpc-nuxt'],
-	},
+	devtools: { enabled: true },
 	modules: [
 		'@nuxt/eslint',
 		'@nuxt/fonts',
 		'@nuxt/icon',
 		'@nuxt/image',
-		'@vueuse/nuxt',
 		'@nuxt/test-utils/module',
+		'@vueuse/nuxt',
 	],
-	image: {
-		domains: ['static.tvmaze.com', 'static.tvmaze.org'],
-		remotePatterns: [
-			{ protocol: 'https', hostname: 'static.tvmaze.com' },
-			{ protocol: 'https', hostname: 'static.tvmaze.org' },
-		],
+	nitro: { preset: 'netlify' },
+	ssr: true,
+	vite: {
+		plugins: [tailwindcss()],
 	},
 })
