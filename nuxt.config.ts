@@ -40,5 +40,9 @@ export default defineNuxtConfig({
 	],
 	image: {
 		domains: ['static.tvmaze.com', 'static.tvmaze.org'],
+		remotePatterns: [
+			{ protocol: 'https', hostname: 'static.tvmaze.com' },
+			{ protocol: 'https', hostname: 'static.tvmaze.org' },
+		],
 	},
 })

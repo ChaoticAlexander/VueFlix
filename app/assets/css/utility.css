@@ -5,3 +5,43 @@
 .scrollbar-none::-webkit-scrollbar {
 	display: none;
 }
+
+@layer utilities {
+	/* Horizontal fade edges for scrollers */
+	.fade-edges {
+		position: relative;
+	}
+	.fade-edges::before,
+	.fade-edges::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		height: 100%;
+		pointer-events: none;
+		opacity: 0;
+		z-index: 10;
+		transition: opacity 0.1s ease-in-out;
+		will-change: opacity;
+		width: theme('spacing.6');
+	}
+	.fade-edges::before {
+		left: 0;
+		background: linear-gradient(to left, transparent, var(--color-background));
+	}
+	.fade-edges::after {
+		right: 0;
+		background: linear-gradient(to right, transparent, var(--color-background));
+	}
+	@media (min-width: theme('screens.md')) {
+		.fade-edges::before,
+		.fade-edges::after {
+			width: theme('spacing.8');
+		}
+	}
+	@media (min-width: theme('screens.lg')) {
+		.fade-edges::before,
+		.fade-edges::after {
+			width: theme('spacing.10');
+		}
+	}
+}

@@ -1,9 +1,9 @@
 <template>
-	<div class="px-4 py-6 md:px-8 xl:px-10">
-		<div class="mb-6 relative">
+	<div class="px-4 py-4 md:px-6 md:py-6 lg:px-8 xl:px-10">
+		<div class="relative mb-6">
 			<Header />
 		</div>
-		<div class="content mt-12">
+		<div class="content mt-16 lg:mt-12">
 			<slot />
 		</div>
 	</div>

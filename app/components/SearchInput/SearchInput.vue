@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="group bg-surface/70 w-full rounded-lg backdrop-blur-lg"
+		class="group bg-surface/70 box-border max-w-full overflow-hidden rounded-lg backdrop-blur-lg"
 		:class="{ 'border border-red-800/70': error }"
 	>
 		<!--	Input field	-->
@@ -8,7 +8,7 @@
 			<input
 				ref="input-field"
 				name="searchInputField"
-				class="w-full p-2 pr-10 pl-4 text-xs focus:outline-0"
+				class="w-full p-2 pr-10 pl-4 text-base focus:outline-0 md:text-xs"
 				type="text"
 				placeholder="Search..."
 				@keyup="fetchSearchResults"

@@ -1,11 +1,13 @@
 <template>
-	<div class="flex animate-pulse items-start gap-24">
+	<div
+		class="flex animate-pulse flex-col gap-6 md:flex-row md:items-start md:gap-16 lg:gap-24"
+	>
 		<div
-			class="bg-surface/60 aspect-[2/3] w-[400px] max-w-full min-w-[300px] shrink overflow-hidden rounded-lg"
+			class="bg-surface/60 aspect-[2/3] w-full max-w-[400px] min-w-[220px] shrink overflow-hidden rounded-lg md:min-w-[300px]"
 		/>
-		<div class="-mt-1 flex max-w-[860px] flex-col gap-6">
+		<div class="-mt-1 flex flex-col gap-6 md:max-w-[860px]">
 			<!-- Title and running years -->
-			<div class="bg-surface/60 h-10 w-3/4 rounded" />
+			<div class="bg-surface/60 h-8 w-3/4 rounded md:h-10" />
 			<div class="bg-surface/60 h-4 w-32 rounded" />
 
 			<!-- Summary lines -->

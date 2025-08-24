@@ -1,20 +1,21 @@
 <template>
 	<NuxtLink
 		:to="{ name: 'details-page', params: { id: show.id } }"
-		class="show-cover bg-surface relative h-[300px] w-[200px] shrink-0"
+		class="show-cover bg-surface relative h-[260px] w-[180px] shrink-0 overflow-hidden rounded-lg md:h-[300px] md:w-[200px]"
 	>
 		<NuxtImg
 			:src="show?.image?.medium ?? '/images/generic-cover.png'"
-			height="300px"
-			width="200px"
 			:alt="show.name"
 			quality="70"
 			loading="lazy"
 			decoding="async"
 			fetchpriority="low"
-			class="h-full w-full object-cover overflow-clip rounded-lg"
+			class="h-full w-full rounded-lg object-cover"
 		/>
-		<ShowCoverOverlay :show class="show-overlay invisible opacity-0 backdrop-blur-xs rounded-lg" />
+		<ShowCoverOverlay
+			:show
+			class="show-overlay invisible rounded-lg opacity-0 backdrop-blur-xs"
+		/>
 	</NuxtLink>
 </template>
 
@@ -29,7 +30,9 @@
 
 <style scoped>
 	.show-overlay {
-		transition: opacity .2s ease, visibility 0s linear .2s;
+		transition:
+			opacity 0.2s ease,
+			visibility 0s linear 0.2s;
 	}
 	.show-cover:hover > .show-overlay {
 		visibility: visible;

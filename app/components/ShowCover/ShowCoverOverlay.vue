@@ -1,10 +1,13 @@
 <template>
-	<div class="bg-background/80 absolute inset-0 flex flex-col gap-2 p-4 select-none">
-		<div class="leading-none mb-1">
-			<span class="font-bold">{{ show.name }}</span><br />
-			<span class="text-gray-400 text-xs">{{ runningYears }}</span>
+	<div
+		class="bg-background/80 absolute inset-0 z-10 flex flex-col gap-2 p-3 select-none md:p-4"
+	>
+		<div class="mb-1 leading-none">
+			<span class="font-bold">{{ show.name }}</span
+			><br />
+			<span class="text-xs text-gray-400">{{ runningYears }}</span>
 		</div>
-		<div class="line-clamp-7 text-xs shrink-0">
+		<div class="line-clamp-4 shrink-0 text-xs md:line-clamp-7">
 			{{ stripHTML(show.summary) }}
 		</div>
 		<div class="flex flex-wrap gap-1">
@@ -16,10 +19,15 @@
 		</div>
 		<div
 			v-if="show.rating"
-			class="text-muted mt-auto flex items-center justify-end gap-1 text-xs"
+			class="text-muted mt-auto flex items-center justify-end gap-1 text-[10px] md:text-xs"
 		>
 			<span>{{ show.rating }}</span>
-			<NuxtImg src="images/imdb.png" height="12px" alt="imdb logo" class="inline" />
+			<NuxtImg
+				src="images/imdb.png"
+				height="12px"
+				alt="imdb logo"
+				class="inline"
+			/>
 		</div>
 	</div>
 </template>
