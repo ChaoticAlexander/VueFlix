@@ -17,6 +17,22 @@ const t = initTRPC.create({
 	 * @see https://trpc.io/docs/server/data-transformers
 	 */
 	// transformer: superjson,
+	/**
+	 * Centralized error formatting to normalize messages and hide stacks in prod.
+	 */
+	errorFormatter({ shape, error }) {
+		const hasName = (val: unknown): val is { name?: string } =>
+			typeof val === 'object' && val !== null && 'name' in (val as object)
+		const isZod = hasName(error.cause) && error.cause.name === 'ZodError'
+		return {
+			...shape,
+			message: isZod ? 'Invalid input.' : shape.message,
+			data: {
+				...shape.data,
+				stack: import.meta.dev ? shape.data.stack : undefined,
+			},
+		}
+	},
 })
 
 // Base router and procedure helpers
