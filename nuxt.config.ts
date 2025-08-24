@@ -34,6 +34,9 @@ export default defineNuxtConfig({
 		'@nuxt/test-utils/module',
 		'@vueuse/nuxt',
 	],
+	nitro: {
+		compressPublicAssets: true,
+	},
 	ssr: true,
 	vite: {
 		plugins: [tailwindcss()],
