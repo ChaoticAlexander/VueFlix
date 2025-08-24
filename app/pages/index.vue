@@ -1,14 +1,22 @@
 <template>
 	<div class="flex flex-col gap-8">
-		<OnVisible v-for="(list, genre) in organizedShows" :key="genre">
-			<ShowGenreRow
-				:loading="loading[genre]"
-				:genre
-				:list
-				:load-offset="500"
-				@load-more="loadMore"
-			/>
-		</OnVisible>
+		<ErrorBanner
+			v-if="error"
+			message="Service is temporarily unavailable. Please try again later."
+			@retry="refresh"
+		/>
+		<ShowIndexSkeleton v-if="pending || error" />
+		<template v-else>
+			<OnVisible v-for="(list, genre) in organizedShows" :key="genre">
+				<ShowGenreRow
+					:loading="loading[genre]"
+					:genre
+					:list
+					:load-offset="500"
+					@load-more="loadMore"
+				/>
+			</OnVisible>
+		</template>
 	</div>
 </template>
 
@@ -17,14 +25,16 @@
 		ShowIndexItem,
 		OrganizedShowList,
 	} from '~/shared/types/showTypes'
+	import ShowIndexSkeleton from '~/components/ShowSkeletons/ShowIndexSkeleton.vue'
 
 	const { $trpc } = useNuxtApp()
 	const loading = ref<Record<string, boolean>>({})
 	const nextPage: Record<string, number> = {}
 	const organizedShows = ref<OrganizedShowList<ShowIndexItem>>({})
-	const { data } = await $trpc.shows.organized.useQuery(undefined, {
-		watch: false,
-	})
+	const { data, pending, error, refresh } =
+		await $trpc.shows.organized.useQuery(undefined, {
+			watch: false,
+		})
 
 	watchEffect(() => data.value && (organizedShows.value = data.value))
 
@@ -36,17 +46,22 @@
 
 		// Make sure the next page always has results.
 		// (due to how data is being provided by tvmaze, results for each category are not guaranteed.)
-		for (let tries = 0; tries < 3; tries++) {
-			const page = (nextPage[genre] ??= 2)
-			const more = await $trpc.shows.byGenre.query({ genre, page })
-			nextPage[genre] = page + 1
-			if (more.length) {
-				organizedShows.value[genre]!.push(...more)
-				break
+		try {
+			for (let tries = 0; tries < 3; tries++) {
+				const page = (nextPage[genre] ??= 2)
+				const more = await $trpc.shows.byGenre.query({ genre, page })
+				nextPage[genre] = page + 1
+				if (more.length) {
+					organizedShows.value[genre]!.push(...more)
+					break
+				}
 			}
+		} catch (e) {
+			// Optionally surface a small per-row banner or toast here
+			console.error('Failed to load more for', genre, e)
+		} finally {
+			loading.value[genre] = false
 		}
-
-		loading.value[genre] = false
 	}
 
 	const loadMore = (genre: string) => {

@@ -22,12 +22,9 @@
 				/>
 				<Icon
 					v-else-if="error"
-					v-tooltip="{
-						content: 'Something went wrong..',
-						popperClass: 'tooltip-error',
-					}"
-					name="mdi:error"
-					class="error-icon text-red-800/70 hover:text-red-700/70"
+					name="mdi:refresh"
+					class="error-icon text-red-800/70 hover:text-red-600/70"
+					@click="fetchSearchResults"
 				/>
 				<Icon
 					v-else-if="searchResults"
@@ -54,6 +51,12 @@
 			>
 				No results
 			</div>
+		</div>
+		<div
+			v-if="error"
+			class="hidden p-4 text-center text-[10px] text-red-600 group-focus-within:block"
+		>
+			Service is currently unavailable, please try again later.
 		</div>
 	</div>
 </template>
@@ -91,8 +94,6 @@
 		inputField.value.focus()
 		executeSearchQuery()
 	}, 300)
-
-	watch(error, () => console.log(error, queryParams))
 </script>
 
 <style lang="scss" scoped>
@@ -108,9 +109,5 @@
 		span:not(.loading-icon):not(.error-icon):hover {
 			color: var(--color-muted);
 		}
-	}
-
-	:deep(.tooltip-error .v-popper__inner) {
-		@apply text-text bg-red-700/70 backdrop-blur-lg;
 	}
 </style>

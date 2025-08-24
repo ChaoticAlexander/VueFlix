@@ -13,8 +13,9 @@ const ShowIndexItemSchema = RawShowSchema.pick({
 	ended: true,
 	rating: true,
 	image: true,
-	summary: true
+	summary: true,
 })
+
 const ShowIndexSchema = z.array(ShowIndexItemSchema)
 
 // Search Results Schemas
@@ -24,8 +25,9 @@ const ShowSearchResultItemSchema = RawShowSchema.pick({
 	rating: true,
 	image: true,
 	premiered: true,
-	ended: true
+	ended: true,
 })
+
 const ShowSearchResultListSchema = z
 	.array(
 		z.object({
@@ -33,8 +35,7 @@ const ShowSearchResultListSchema = z
 			show: ShowSearchResultItemSchema,
 		}),
 	)
-	.transform((list) =>
-		list.map(({ show }) => show))
+	.transform((list) => list.map(({ show }) => show))
 
 const ShowDetailsSchema = z.object({
 	show: RawShowSchema,
@@ -42,4 +43,10 @@ const ShowDetailsSchema = z.object({
 	cast: ShowCastListSchema,
 })
 
-export { ShowIndexItemSchema, ShowIndexSchema, ShowSearchResultItemSchema, ShowSearchResultListSchema, ShowDetailsSchema }
+export {
+	ShowIndexItemSchema,
+	ShowIndexSchema,
+	ShowSearchResultItemSchema,
+	ShowSearchResultListSchema,
+	ShowDetailsSchema,
+}

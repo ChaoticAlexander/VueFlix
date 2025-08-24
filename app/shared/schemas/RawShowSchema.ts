@@ -19,9 +19,11 @@ const ScheduleSchema = z.object({
 	days: z.array(z.string()),
 })
 
-const RatingSchema = z.object({
-	average: z.number().nullable(),
-}).transform(({ average }) => average ?? undefined)
+const RatingSchema = z
+	.object({
+		average: z.number().nullable(),
+	})
+	.transform(({ average }) => average ?? undefined)
 
 const ExternalsSchema = z.object({
 	tvrage: z.number().nullish(),
@@ -50,7 +52,7 @@ export const RawShowSchema = z.object({
 	url: z.url(),
 	name: z.string(),
 	type: z.string(),
-	language: z.string().optional(),
+	language: z.string().nullish(),
 	genres: z.array(z.string()).optional(),
 	status: z.string().optional(),
 	runtime: z.number().nullish(),
@@ -63,7 +65,7 @@ export const RawShowSchema = z.object({
 	weight: z.number().optional(),
 	network: NetworkSchema.nullish(),
 	externals: ExternalsSchema.optional(),
-	image: ImageSchema.optional().nullable(),
+	image: ImageSchema.nullish(),
 	summary: z.string().nullable(),
 	updated: z.number(),
 	_links: LinksSchema,
