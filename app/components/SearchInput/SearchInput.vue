@@ -1,5 +1,8 @@
 <template>
-	<div class="group bg-surface/70 w-full rounded-lg backdrop-blur-lg">
+	<div
+		class="group bg-surface/70 w-full rounded-lg backdrop-blur-lg"
+		:class="{ 'border border-red-800/70': error }"
+	>
 		<!--	Input field	-->
 		<div class="relative">
 			<input
@@ -16,6 +19,15 @@
 					name="mdi:loading"
 					class="loading-icon origin-center animate-spin"
 					@click="clearSearchResults"
+				/>
+				<Icon
+					v-else-if="error"
+					v-tooltip="{
+						content: 'Something went wrong..',
+						popperClass: 'tooltip-error',
+					}"
+					name="mdi:error"
+					class="error-icon text-red-800/70 hover:text-red-700/70"
 				/>
 				<Icon
 					v-else-if="searchResults"
@@ -93,8 +105,12 @@
 		right: calc(var(--spacing) * 3);
 		cursor: pointer;
 
-		span:not(.loading-icon):hover {
+		span:not(.loading-icon):not(.error-icon):hover {
 			color: var(--color-muted);
 		}
+	}
+
+	:deep(.tooltip-error .v-popper__inner) {
+		@apply text-text bg-red-700/70 backdrop-blur-lg;
 	}
 </style>

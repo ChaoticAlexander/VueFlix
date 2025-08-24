@@ -10,9 +10,9 @@
 		>
 			<div
 				ref="scroller"
-				class="scrollbar-none overflow-x-auto h-[300px]"
+				class="scrollbar-none overflow-x-auto h-[310px]"
 			>
-				<VirtualScroller :list="list" :scroller="scroller!">
+				<VirtualScroller :list="list" :scroller="scroller!" :gap="16">
 					<template #default="{ item }">
 						<ShowCover :show="item" />
 					</template>
@@ -32,17 +32,20 @@
 	import type { ShowIndex } from '~/shared/types/showTypes'
 	import ShowCoverSkeleton from '~/components/ShowCover/ShowCoverSkeleton.vue'
 
-	const props = defineProps<{
+	const props = withDefaults(defineProps<{
 		genre: string
 		list: ShowIndex
 		loading?: boolean
-	}>()
+		loadOffset?: number
+	}>(), {
+		loadOffset: 300
+	})
 
 	const scroller = useTemplateRef<HTMLDivElement>('scroller')
 	const { arrivedState } = useScroll(scroller)
 	const { arrivedState: almost, directions } = useScroll(scroller, {
 		offset: {
-			right: 300
+			right: props.loadOffset
 		}
 	})
 

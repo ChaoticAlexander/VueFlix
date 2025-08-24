@@ -11,7 +11,7 @@ import type {
 	ShowImagesSchema,
 } from '~/shared/schemas/ShowImageSchemas'
 import type {
-	CastListSchema,
+	ShowCastListSchema,
 	CastMemberSchema,
 } from '~/shared/schemas/ShowCastSchemas'
 
@@ -30,4 +30,4 @@ export type ShowImages = z.infer<typeof ShowImagesSchema>
 
 // Cast Types
 export type CastMember = z.infer<typeof CastMemberSchema>
-export type CastList = z.infer<typeof CastListSchema>
+export type CastList = z.infer<typeof ShowCastListSchema>

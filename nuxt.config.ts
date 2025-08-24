@@ -15,11 +15,13 @@ export default defineNuxtConfig({
 		},
 	},
 	fonts: {
-		families: [{
-			name: 'Montserrat',
-			provider: 'google',
-			weights: [400, 600, 700],
-		}]
+		families: [
+			{
+				name: 'Montserrat',
+				provider: 'google',
+				weights: [400, 600, 700],
+			},
+		],
 	},
 	css: ['~/assets/css/main.css'],
 	vite: {
@@ -33,7 +35,9 @@ export default defineNuxtConfig({
 		'@nuxt/fonts',
 		'@nuxt/icon',
 		'@nuxt/image',
-		'@nuxt/test-utils',
 		'@vueuse/nuxt',
 	],
+	image: {
+		domains: ['static.tvmaze.com', 'static.tvmaze.org'],
+	},
 })

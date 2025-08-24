@@ -6,6 +6,7 @@
 		<template v-for="v in rowVirtualizer.getVirtualItems()" :key="v.key">
 			<div
 				class="absolute top-0"
+				:class="elementClasses"
 				:style="{ left: v.start + 'px', width: itemWidth + 'px' }"
 			>
 				<slot
@@ -38,10 +39,12 @@ const props = withDefaults(
 		scroller: HTMLElement
 		itemWidth?: number
 		gap?: number
+		elementClasses?: string
 	}>(),
 	{
 		itemWidth: 200,
 		gap: 12,
+		elementClasses: ''
 	},
 )
 

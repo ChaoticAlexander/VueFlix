@@ -13,7 +13,9 @@ import {
 } from '~/shared/utils/showUtils'
 
 const fetchShows = async (page = 1) => {
-	const res = await $fetch('https://api.tvmaze.com/shows?page=' + page)
+	const res = await $fetch('https://api.tvmaze.com/shows?page=' + page, {
+		timeout: 5000,
+	})
 	return ShowIndexSchema.parse(res) // items: ShowIndexItem
 }
 
@@ -34,6 +36,7 @@ export const showsRouter = createTRPCRouter({
 		.query(async ({ input }) => {
 			const res = await $fetch(
 				'https://api.tvmaze.com/search/shows?q=' + encodeURI(input.query),
+				{ timeout: 5000 },
 			)
 			return ShowSearchResultListSchema.parse(res)
 		}),
@@ -45,7 +48,9 @@ export const showsRouter = createTRPCRouter({
 			const endpoints = ['', '/images', '/cast']
 
 			const [show, images, cast] = await Promise.all(
-				endpoints.map((suffix) => $fetch(`${base}${suffix}`)),
+				endpoints.map((suffix) =>
+					$fetch(`${base}${suffix}`, { timeout: 5000 }),
+				),
 			)
 			return ShowDetailsSchema.parse({ show, images, cast })
 		}),

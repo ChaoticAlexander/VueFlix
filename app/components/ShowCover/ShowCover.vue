@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink
 		:to="{ name: 'details-page', params: { id: show.id } }"
-		class="show-cover bg-surface relative h-[300px] w-[200px] shrink-0 overflow-clip rounded-lg"
+		class="show-cover bg-surface relative h-[300px] w-[200px] shrink-0"
 	>
 		<NuxtImg
 			:src="show?.image?.medium ?? '/images/generic-cover.png'"
@@ -12,9 +12,9 @@
 			loading="lazy"
 			decoding="async"
 			fetchpriority="low"
-			class="h-full w-full object-cover"
+			class="h-full w-full object-cover overflow-clip rounded-lg"
 		/>
-		<ShowCoverOverlay :show class="show-overlay invisible opacity-0 backdrop-blur-xs" />
+		<ShowCoverOverlay :show class="show-overlay invisible opacity-0 backdrop-blur-xs rounded-lg" />
 	</NuxtLink>
 </template>
 

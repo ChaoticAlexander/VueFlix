@@ -5,7 +5,7 @@
 				:loading="loading[genre]"
 				:genre
 				:list
-				hydrate
+				:load-offset="500"
 				@load-more="loadMore"
 			/>
 		</OnVisible>
@@ -20,7 +20,7 @@
 
 	const { $trpc } = useNuxtApp()
 	const loading = ref<Record<string, boolean>>({})
-	const nextPage = reactive<Record<string, number>>({})
+	const nextPage: Record<string, number> = {}
 	const organizedShows = ref<OrganizedShowList<ShowIndexItem>>({})
 	const { data } = await $trpc.shows.organized.useQuery(undefined, {
 		watch: false,

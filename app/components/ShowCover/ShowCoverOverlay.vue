@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-background/80 absolute inset-0 flex flex-col gap-2 p-4">
+	<div class="bg-background/80 absolute inset-0 flex flex-col gap-2 p-4 select-none">
 		<div class="leading-none mb-1">
 			<span class="font-bold">{{ show.name }}</span><br />
 			<span class="text-gray-400 text-xs">{{ runningYears }}</span>
