@@ -78,6 +78,7 @@
 
 	definePageMeta({
 		name: 'home',
+		keepalive: true,
 	})
 </script>
 

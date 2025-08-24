@@ -8,7 +8,7 @@ const ImageResolutionSchema = z.object({
 
 export const ShowImageSchema = z.object({
 	id: z.number(),
-	type: z.string().nullable(),               // e.g. "poster", "background"
+	type: z.string().nullable(), // e.g. "poster", "background"
 	main: z.boolean(),
 	resolutions: z.object({
 		original: ImageResolutionSchema,
@@ -16,7 +16,7 @@ export const ShowImageSchema = z.object({
 	}),
 })
 
-export const ShowImagesSchema = z.array(ShowImageSchema).transform(arr => {
+export const ShowImagesSchema = z.array(ShowImageSchema).transform((arr) => {
 	const out: Record<string, { original: string; medium?: string }> = {}
 
 	for (const img of arr) {
@@ -32,4 +32,3 @@ export const ShowImagesSchema = z.array(ShowImageSchema).transform(arr => {
 
 	return out
 })
-

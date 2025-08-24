@@ -19,7 +19,7 @@
 					:item-width="itemWidth"
 				>
 					<template #default="{ item }">
-						<ShowCover :show="item" />
+						<ShowIndexCover :show="item" />
 					</template>
 
 					<template #post>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 	import type { ShowIndex } from '~/shared/types/showTypes'
-	import ShowCoverSkeleton from '~/components/ShowCover/ShowCoverSkeleton.vue'
+	import ShowIndexCover from '~/components/ShowCover/ShowIndexCover.vue'
 
 	const props = withDefaults(
 		defineProps<{

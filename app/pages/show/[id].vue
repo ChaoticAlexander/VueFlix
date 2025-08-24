@@ -22,13 +22,17 @@
 			class="flex flex-col gap-6 md:flex-row md:items-start md:gap-16 lg:gap-24"
 		>
 			<div
-				class="aspect-[2/3] w-full max-w-[400px] min-w-[220px] shrink overflow-hidden rounded-lg md:min-w-[300px]"
+				class="relative aspect-[2/3] w-full max-w-[400px] min-w-[220px] shrink overflow-hidden rounded-lg md:min-w-[300px]"
 			>
-				<NuxtImg
-					width="400"
-					height="600"
-					:src="data?.show.image?.original"
-					class="h-full w-full object-cover"
+				<ShowCover
+					:src="coverSrc"
+					alt=""
+					quality="70"
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+					img-class="h-full w-full object-cover"
+					class="h-full w-full"
 				/>
 			</div>
 			<div class="-mt-1 flex flex-col gap-6 md:max-w-[860px]">
@@ -56,7 +60,7 @@
 			</div>
 		</div>
 
-		<NuxtImg
+		<img
 			:src="backgroundImage"
 			class="fixed inset-0 -z-10 h-full w-full object-cover blur-xl brightness-40"
 		/>
@@ -75,9 +79,12 @@
 	const { data, error, pending, refresh } =
 		await $trpc.shows.details.useQuery(queryParams)
 
+	const coverSrc = computed(() => data.value?.show.image?.original)
+
 	const backgroundImage = computed(
 		() =>
-			data.value?.images.background?.original ??
+			data.value?.images.background?.medium ||
+			data.value?.images.background?.original ||
 			data.value?.show.image?.original,
 	)
 

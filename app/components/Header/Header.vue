@@ -1,7 +1,7 @@
 <template>
 	<header class="flex flex-row items-center justify-between gap-3">
 		<NuxtLink :to="{ name: 'home' }" class="order-1 hidden lg:block">
-			<NuxtImg src="/images/logo.png" width="48px" height="48px" alt="Logo" />
+			<NuxtImg src="/images/logo.png" width="48" height="48" alt="Logo" />
 		</NuxtLink>
 		<SearchInput
 			icon="mdi:search"

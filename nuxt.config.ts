@@ -34,10 +34,6 @@ export default defineNuxtConfig({
 		'@nuxt/test-utils/module',
 		'@vueuse/nuxt',
 	],
-	image: {
-		domains: ['static.tvmaze.com'],
-		remotePatterns: [{ protocol: 'https', hostname: 'static.tvmaze.com' }],
-	},
 	ssr: true,
 	vite: {
 		plugins: [tailwindcss()],

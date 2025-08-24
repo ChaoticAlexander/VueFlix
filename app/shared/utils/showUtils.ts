@@ -35,7 +35,10 @@ const sortOrganizedShowListByRating = <T extends { rating?: number }>(
 	shows: OrganizedShowList<T>,
 ): OrganizedShowList<T> =>
 	Object.fromEntries(
-		Object.entries(shows).map(([genre, list]) => [genre, sortShowListByRating(list)]),
+		Object.entries(shows).map(([genre, list]) => [
+			genre,
+			sortShowListByRating(list),
+		]),
 	)
 
 // returns the running years of a show as a string. example: (2010 - 2014)

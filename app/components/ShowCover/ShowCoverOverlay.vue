@@ -22,12 +22,7 @@
 			class="text-muted mt-auto flex items-center justify-end gap-1 text-[10px] md:text-xs"
 		>
 			<span>{{ show.rating }}</span>
-			<NuxtImg
-				src="images/imdb.png"
-				height="12px"
-				alt="imdb logo"
-				class="inline"
-			/>
+			<img src="/images/imdb.png" alt="imdb logo" class="h-3" />
 		</div>
 	</div>
 </template>

@@ -1,12 +1,18 @@
 <template>
-	<NuxtLink :to="{ name: 'details-page', params: { id: item.id } }" class="flex items-center gap-4 p-3 cursor-pointer hover:bg-primary-hover/30 rounded-md">
+	<NuxtLink
+		:to="{ name: 'details-page', params: { id: item.id } }"
+		class="hover:bg-primary-hover/30 flex cursor-pointer items-center gap-4 rounded-md p-3"
+	>
 		<div class="h-12 w-12 overflow-clip rounded-md">
-			<NuxtImg
-				:src="item.image?.medium ?? '/images/generic-cover.png'"
-				height="48px"
-				width="48px"
+			<ShowCover
+				:src="item.image?.medium"
 				:alt="`${item.name} Cover`"
-				class="h-full w-full object-cover"
+				height="48"
+				width="48"
+				quality="70"
+				loading="lazy"
+				decoding="async"
+				fetchpriority="high"
 			/>
 		</div>
 		<div>

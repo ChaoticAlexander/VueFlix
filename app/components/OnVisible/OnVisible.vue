@@ -6,9 +6,11 @@
 </template>
 
 <script setup lang="ts">
-const root = useTemplateRef<HTMLElement>('root')
-const seen = ref(false)
-const visible = useElementVisibility(root, { threshold: 0.01 })
+	const root = useTemplateRef<HTMLElement>('root')
+	const seen = ref(false)
+	const visible = useElementVisibility(root, { threshold: 0.01 })
 
-watch(visible, v => { if (v) seen.value = true })
+	watch(visible, (v) => {
+		if (v) seen.value = true
+	})
 </script>

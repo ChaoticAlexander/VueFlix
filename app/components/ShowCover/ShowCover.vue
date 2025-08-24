@@ -1,43 +1,52 @@
 <template>
-	<NuxtLink
-		:to="{ name: 'details-page', params: { id: show.id } }"
-		class="show-cover bg-surface relative h-[260px] w-[180px] shrink-0 overflow-hidden rounded-lg md:h-[300px] md:w-[200px]"
-	>
-		<NuxtImg
-			:src="show?.image?.medium ?? '/images/generic-cover.png'"
-			:alt="show.name"
-			quality="70"
-			loading="lazy"
-			decoding="async"
-			fetchpriority="low"
-			class="h-full w-full rounded-lg object-cover"
+	<div class="relative" :class="$attrs.class">
+		<div
+			v-show="isLoading"
+			class="bg-surface/70 pointer-events-none absolute inset-0 animate-pulse"
 		/>
-		<ShowCoverOverlay
-			:show
-			class="show-overlay invisible rounded-lg opacity-0 backdrop-blur-xs"
+		<img
+			:src="computedSrc"
+			:alt="alt"
+			:loading="loading"
+			:decoding="decoding"
+			:fetchpriority="fetchpriority"
+			:class="imgClass"
+			:height="height"
+			:width="width"
 		/>
-	</NuxtLink>
+	</div>
 </template>
 
 <script setup lang="ts">
-	import type { ShowIndexItem } from '~/shared/types/showTypes'
-	import ShowCoverOverlay from '~/components/ShowCover/ShowCoverOverlay.vue'
+	import { useImage } from '@vueuse/core'
 
-	defineProps<{
-		show: ShowIndexItem
-	}>()
+	const props = withDefaults(
+		defineProps<{
+			src?: string
+			alt?: string
+			loading?: 'lazy' | 'eager' | undefined
+			decoding?: 'async' | 'auto' | 'sync' | undefined
+			fetchpriority?: 'high' | 'low' | 'auto' | undefined
+			imgClass?: string
+			height?: string | number
+			width?: string | number
+		}>(),
+		{
+			src: '/images/generic-cover.png',
+			alt: 'Tv Show cover',
+			loading: 'lazy',
+			decoding: 'async',
+			fetchpriority: 'auto',
+			imgClass: 'h-full w-full object-cover',
+			height: undefined,
+			width: undefined,
+		},
+	)
+
+	const { isLoading, error } = useImage({ src: props.src })
+
+	const computedSrc = computed(() => {
+		if (error?.value) return '/images/generic-cover.png'
+		return props.src
+	})
 </script>
-
-<style scoped>
-	.show-overlay {
-		transition:
-			opacity 0.2s ease,
-			visibility 0s linear 0.2s;
-	}
-	.show-cover:hover > .show-overlay {
-		visibility: visible;
-		opacity: 1;
-		cursor: pointer;
-		transition-delay: 0s, 0s;
-	}
-</style>

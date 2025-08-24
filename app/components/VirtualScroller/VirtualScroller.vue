@@ -20,9 +20,9 @@
 			v-if="$slots.post"
 			class="absolute top-0 flex"
 			:style="{
-        left: rowVirtualizer.getTotalSize() + 'px',
-        gap: gap + 'px',
-      }"
+				left: rowVirtualizer.getTotalSize() + 'px',
+				gap: gap + 'px',
+			}"
 		>
 			<slot name="post" />
 		</div>
@@ -30,35 +30,44 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed } from 'vue'
-import { useVirtualizer } from '@tanstack/vue-virtual'
+	import { computed } from 'vue'
+	import { useVirtualizer } from '@tanstack/vue-virtual'
 
-const props = withDefaults(
-	defineProps<{
-		list: T[]
-		scroller: HTMLElement
-		itemWidth?: number
-		gap?: number
-		elementClasses?: string
-	}>(),
-	{
-		itemWidth: 200,
-		gap: 12,
-		elementClasses: ''
-	},
-)
+	const props = withDefaults(
+		defineProps<{
+			list: T[]
+			scroller: HTMLElement
+			itemWidth?: number
+			gap?: number
+			elementClasses?: string
+		}>(),
+		{
+			itemWidth: 200,
+			gap: 12,
+			elementClasses: '',
+		},
+	)
 
-const itemSize = computed(() => props.itemWidth + props.gap)
+	const itemSize = computed(() => props.itemWidth + props.gap)
 
-const virtualizerOptions = computed(() => ({
-	horizontal: true,
-	count: props.list.length,
-	getScrollElement: () => props.scroller,
-	estimateSize: () => itemSize.value,
-	overscan: 5,
-}))
-const rowVirtualizer = useVirtualizer(virtualizerOptions)
+	const virtualizerOptions = computed(() => ({
+		horizontal: true,
+		count: props.list.length,
+		getScrollElement: () => props.scroller,
+		estimateSize: () => itemSize.value,
+		overscan: 5,
+	}))
+	const rowVirtualizer = useVirtualizer(virtualizerOptions)
 
-// expose so template can use
-const { itemWidth, gap } = props
+	// Recompute sizes when (re)activated or mounted to avoid blank list after back nav
+	onMounted(() => {
+		// slight microtask delay in case scroller sizes haven't settled yet
+		requestAnimationFrame(() => rowVirtualizer.value.measure())
+	})
+	onActivated(() => {
+		requestAnimationFrame(() => rowVirtualizer.value.measure())
+	})
+
+	// expose so template can use
+	const { itemWidth, gap } = props
 </script>
