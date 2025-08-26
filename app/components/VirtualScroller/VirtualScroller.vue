@@ -59,15 +59,16 @@
 	}))
 	const rowVirtualizer = useVirtualizer(virtualizerOptions)
 
-	// Recompute sizes when (re)activated or mounted to avoid blank list after back nav
-	onMounted(() => {
-		// slight microtask delay in case scroller sizes haven't settled yet
-		requestAnimationFrame(() => rowVirtualizer.value.measure())
-	})
-	onActivated(() => {
-		requestAnimationFrame(() => rowVirtualizer.value.measure())
-	})
+	// Recompute sizes on mount/activation and when inputs affecting size change
+	const measure = () => rowVirtualizer.value.measure()
 
-	// expose so template can use
-	const { itemWidth, gap } = props
+	onMounted(() => requestAnimationFrame(measure))
+	onActivated(() => requestAnimationFrame(measure))
+
+	watch(
+		() => [props.list.length, props.itemWidth, props.gap],
+		() => {
+			requestAnimationFrame(measure)
+		},
+	)
 </script>

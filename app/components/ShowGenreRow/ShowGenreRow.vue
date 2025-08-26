@@ -37,34 +37,24 @@
 	import type { ShowIndex } from '~/shared/types/showTypes'
 	import ShowIndexCover from '~/components/ShowCover/ShowIndexCover.vue'
 
-	const props = withDefaults(
-		defineProps<{
-			genre: string
-			list: ShowIndex
-			loading?: boolean
-			loadOffset?: number
-		}>(),
-		{
-			loadOffset: 300,
-		},
-	)
+	const props = defineProps<{
+		genre: string
+		list: ShowIndex
+		loading?: boolean
+	}>()
 
 	const scroller = useTemplateRef<HTMLDivElement>('scroller')
-	const { arrivedState } = useScroll(scroller)
-	const { arrivedState: almost, directions } = useScroll(scroller, {
-		offset: {
-			right: props.loadOffset,
-		},
-	})
+	const { arrivedState, directions } = useScroll(scroller)
 
 	const emit = defineEmits<{
 		loadMore: [string]
 	}>()
 	watch(
-		() => almost.right,
-		() => {
-			if (!directions.left) emit('loadMore', props.genre)
+		() => arrivedState.right,
+		(arrivedRight) => {
+			if (arrivedRight && !directions.left) emit('loadMore', props.genre)
 		},
+		{ immediate: true },
 	)
 
 	// Responsive item width so covers and skeletons resize on small screens

@@ -13,4 +13,19 @@
 	watch(visible, (v) => {
 		if (v) seen.value = true
 	})
+
+	onMounted(() => {
+		if (visible.value) {
+			seen.value = true
+			return
+		}
+		// Fallback in case visibility state settles a frame later
+		requestAnimationFrame(() => {
+			if (visible.value) seen.value = true
+		})
+	})
+
+	onActivated(() => {
+		seen.value = true
+	})
 </script>

@@ -12,7 +12,6 @@
 					:loading="loading[genre]"
 					:genre
 					:list
-					:load-offset="500"
 					@load-more="loadMore"
 				/>
 			</OnVisible>
